@@ -13,20 +13,20 @@ int main()
         for (int i = 0; i < n; i++)
             cin >> arr[i];
 
-        bool fi = true;
-        bool fd = true;
-        for (int i = 0; i < n-1 ; i++)
-        {
-            if (arr[i + 1] < arr[i])
-                fi = false;
-            if (arr[i + 1] > arr[i])
-                fd = false;
-        }
-        if (fi || fd)
-        {
-            cout << 0 << endl;
-            continue;
-        }
+        // bool fi = true;
+        // bool fd = true;
+        // for (int i = 0; i < n-1 ; i++)
+        // {
+        //     if (arr[i + 1] < arr[i])
+        //         fi = false;
+        //     if (arr[i + 1] > arr[i])
+        //         fd = false;
+        // }
+        // if (fi || fd)
+        // {
+        //     cout << 0 << endl;
+        //     continue;
+        // }
         if(n < 3)
         {
             cout<<0<<endl;
