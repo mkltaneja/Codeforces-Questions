@@ -11,7 +11,7 @@ int main()
     cin>>t;
     while(t--)
     {
-        int n,k;
+        long long int n,k;
         cin>>n>>k;
         if(k >= n)
         {
@@ -20,9 +20,9 @@ int main()
         }
         if(n&1)
         {
-            int i;
-            if(k >= sqrt(n))
-                i = sqrt(n);
+            long long int i;
+            if(k >= sqrtl(n))
+                i = sqrtl(n);
             else 
                 i = k;
             // cout<<i<<endl;
@@ -44,7 +44,7 @@ int main()
                 cout<<2<<endl;
                 continue;
             }
-            for(int i=k;i>=1;i--)
+            for(long int i=k;i>=1;i--)
             {
                 if(n % i == 0)
                 {
