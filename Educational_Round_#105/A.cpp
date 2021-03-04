@@ -52,6 +52,30 @@ bool ans(int i, string &s, vector<char> st, vector<char> v)
     return res;
 }
 
+bool ans2(string &s)
+{
+    vector<int> v(3);
+    int n = s.size();
+    int x = s[0]-'A', y = s[n-1]-'A';
+    if(x == y)
+        return false;
+    v[x] = 1;               // '(' = +1 , ')' = -1
+    v[y] = -1;
+
+    if(count(s.begin(), s.end(), x+'A') == n/2)
+        v[3^x^y] = -1;
+    else 
+        v[3^x^y] = 1;
+    int bal = 0;
+    for(char c : s)
+    {
+        bal += v[c-'A'];
+        if(bal < 0)
+            return false;
+    }
+    return bal == 0;
+}
+
 int main()
 {
     int t;
@@ -63,8 +87,8 @@ int main()
         vector<char> st;
         vector<char> v(3);
 
-        bool f = ans(0, s, st, v);
-        // bool f = ans2(s);
+        // bool f = ans(0, s, st, v);
+        bool f = ans2(s);
         if(f)
             cout<<"YES\n";
         else
