@@ -4,6 +4,7 @@
 #include<algorithm>
 using namespace std;
 
+// APPROACH 1 (Recursion an Backtracking) --> O(2*n)
 bool ans(int i, string &s, vector<char> st, vector<char> v)
 {
     if(i == s.size())
@@ -51,6 +52,8 @@ bool ans(int i, string &s, vector<char> st, vector<char> v)
     }
     return res;
 }
+
+// APPROACH 2 (Brute Force) --> O(n)
 
 bool ans2(string &s)
 {
