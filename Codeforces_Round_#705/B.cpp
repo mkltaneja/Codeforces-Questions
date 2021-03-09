@@ -21,6 +21,7 @@ bool isvalid(int h, int m, string s, vector<int> &t)
 
 int main()
 {
+
     int t;
     cin>>t;
     while(t--)
