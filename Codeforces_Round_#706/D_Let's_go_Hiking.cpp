@@ -50,48 +50,58 @@ using namespace std;
 #define omic map<int,char>
 #define omsi map<string,int>
 #define omis map<int,string>
-#define for(i, a, b) for(int i = a; i < b; i++)
-#define forr(i, b, a) for(int i = b; i > a; i--)
-#define forl(i, a, b) for(ll  i = a; i < b; i++)
-#define forlr(i, b, a) for(ll i = b; i > a; i--)
-#define sorti(a) sort(a.begin(), a.end())
-#define sortd(a) sort(a.rbegin(), a.rend())
-#define fastio {ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);}
+#define lp(i, a, b) for(int i = a; i < b; i++)
+#define lpr(i, b, a) for(int i = b; i > a; i--)
+#define lpl(i, a, b) for(ll  i = a; i < b; i++)
+#define lplr(i, b, a) for(ll i = b; i > a; i--)
+#define all(a) (a.begin(), a.end())
+#define rall(a) (a.rbegin(), a.rend())
+#define fastio() {ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);}
 
 //////////////////////////////////////////////////////////////////MUKUL TANEJA///////////////////////////////////////////////////
 
 int main()
 {
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        int n;
-        cin>>n;
-        vull a(n), b(n);
-        int i = 0, j = 0;
-        for(k, 0, 2*n)
-        {
-            ll x, y;
-            cin>>x>>y;
-            if(x == 0)
-                a[i++] = y*y;
-            else 
-                b[j++] = x*x;
-        }
-        sorti(a);
-        sorti(b);
-        // for(i, n)
-        //     cout<<a[i]<<" ";
-        // cout<<endl;
-        // for(i, n)
-        //     cout<<b[i]<<" ";
+    fastio();
+    int n;
+    cin >> n;
+    vi a(n);
+    lp(i, 0, n)
+        cin>>a[i];
 
-        double ans = 0;
-        for(i, 0, n)
+    vpii less(n,{0,0});
+    lp(i, 1, n)
+        if(a[i-1] < a[i])
+            less[i].f += less[i-1].f + 1;
+    lpr(i, n-2, -1)
+        if(a[i+1] < a[i])
+            less[i].s += less[i+1].s + 1;
+    
+    int maxp = 0, count = 0, ip = -1;
+    lp(i, 0, n)
+    {
+        // cout<<less[i].f<<" "<<less[i].s<<endl;
+        if(less[i].f > maxp)
         {
-            ans += sqrt(a[i]+b[i]);
+            maxp = less[i].f;
+            count = 1;
+            ip = i;
         }
-        cout<<fixed<<setprecision(17)<<ans<<endl;
+        else if(less[i].f == maxp)
+            count++;
+        if(less[i].s > maxp)
+        {
+            maxp = less[i].s;
+            count = 1;
+            ip = i;
+        }
+        else if(less[i].s == maxp)
+            count++;
     }
+    int ans = 0;
+    if(count == 2 && less[ip].f == less[ip].s && !(less[ip].f&1))
+        ans = 1;
+    cout<<ans<<"\n";
+
+    return 0;
 }
