@@ -60,60 +60,74 @@ using namespace std;
 
 //////////////////////////////////////////////////////////////////MUKUL TANEJA///////////////////////////////////////////////////
 
-psi srep(string &a, int n)
+// psi srep(string &a, int n)
+// {
+//     int i = 0, cnt = 1, li = 0;
+//     string sa = "";
+//     for(int i = 0; i <= n/2; i++)
+//     {
+//         string tmp = a.substr(0,i+1);
+//         int j = i+1;
+//         bool fl = true;
+//         int c = 1;
+//         while(j < n)
+//         {
+//             if(a.substr(j,i+1) != tmp)
+//             {
+//                 fl = false;
+//                 break;
+//             }
+//             c++;
+//             j += i+1;
+//         }
+//         if(fl)
+//         {
+//             sa = tmp;
+//             cnt = c;
+//             break;
+//         }
+//     }
+
+//     if(sa == "")
+//         sa = a;
+//     return {sa, cnt};
+// }
+
+// int main()
+// {
+//     fastio();
+//     int t;
+//     cin>>t;
+//     while(t--)
+//     {
+//         string a, b;
+//         cin>>a>>b;
+
+//         string ans = "";
+//         psi sa = srep(a, a.size());
+//         // cout<<endl;
+//         psi sb = srep(b, b.size());
+//         // cout<<sa.f<<" "<<sa.s<<", "<<sb.f<<" "<<sb.s<<endl;
+//         if(sa.f != sb.f)
+//         {
+//             cout<<"-1\n";
+//             continue;
+//         }
+//         int lcm = (sa.s*sb.s)/__gcd(sa.s, sb.s);
+//         while(lcm--)
+//             ans += sa.f;
+//         cout<<ans<<"\n";
+//     }
+//     return 0;
+// }
+
+
+string ans(string &a, int k)
 {
-    int i = 0, cnt = 1, li = 0;
-    string sa = "";
-    for(int i = 0; i <= n/2; i++)
-    {
-        string tmp = a.substr(0,i+1);
-        int j = i+1;
-        bool fl = true;
-        int c = 1;
-        while(j < n)
-        {
-            if(a.substr(j,i+1) != tmp)
-            {
-                fl = false;
-                break;
-            }
-            c++;
-            j += i+1;
-        }
-        if(fl)
-        {
-            sa = tmp;
-            cnt = c;
-            break;
-        }
-    }
-
-    if(sa == "")
-        sa = a;
-    return {sa, cnt};
-
-
-
-    // while(i < n)
-    // {
-    //     int j = 0, ci = i;
-    //     while(ci < n && j <= li && a[ci] == a[j])
-    //         j++, ci++;
-    //     if(j != li+1 || sa == "")
-    //     {
-    //         sa = a.substr(0,i+1);
-    //         li = i;
-    //         cnt = 1;
-    //         i++;
-    //         cout<<sa<<" -> "<<cnt<<"\n";
-    //     }
-    //     else 
-    //     {
-    //         cnt++, i = ci;
-    //         cout<<sa<<" -> "<<cnt<<"\n";
-    //     }
-    // }
-    // return {sa, cnt};
+    string res = "";
+    while(k--)
+        res += a;
+    return res;
 }
 
 int main()
@@ -125,21 +139,15 @@ int main()
     {
         string a, b;
         cin>>a>>b;
+        int n = a.size(), m = b.size();
 
-        string ans = "";
-        psi sa = srep(a, a.size());
-        // cout<<endl;
-        psi sb = srep(b, b.size());
-        // cout<<sa.f<<" "<<sa.s<<", "<<sb.f<<" "<<sb.s<<endl;
-        if(sa.f != sb.f)
-        {
+        int g = __gcd(n, m);
+        string aa = ans(a, m/g);
+        string bb = ans(b, n/g);
+        if(aa == bb)
+            cout<<aa<<"\n";
+        else 
             cout<<"-1\n";
-            continue;
-        }
-        int lcm = (sa.s*sb.s)/__gcd(sa.s, sb.s);
-        while(lcm--)
-            ans += sa.f;
-        cout<<ans<<"\n";
     }
     return 0;
 }
