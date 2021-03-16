@@ -60,6 +60,8 @@ using namespace std;
 
 //////////////////////////////////////////////////////////////////MUKUL TANEJA///////////////////////////////////////////////////
 
+// APPROACH 1
+
 // psi srep(string &a, int n)
 // {
 //     int i = 0, cnt = 1, li = 0;
@@ -121,6 +123,9 @@ using namespace std;
 //     return 0;
 // }
 
+
+
+// APPRAOCH 2 (OPTIMIZED)
 
 string ans(string &a, int k)
 {
