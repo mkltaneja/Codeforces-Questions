@@ -28,9 +28,9 @@ int main()
                 l++;
         }
         int mini = min(l, r), minj = min(u, d);
-        if(mini == 0 && minj != 0)
+        if(mini == 0 && minj > 0)
             minj = 1;
-        else if(minj == 0 && mini != 0)
+        else if(minj == 0 && mini > 0)
             mini = 1;
         l = mini, r = mini;
         u = minj, d = minj;
