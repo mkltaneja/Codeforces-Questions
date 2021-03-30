@@ -60,6 +60,7 @@ using namespace std;
 
 //////////////////////////////////////////////////////////////////MUKUL TANEJA///////////////////////////////////////////////////
 
+
 int main()
 {
     fastio();
@@ -70,63 +71,61 @@ int main()
         int n;
         cin>>n;
         vi a(n);
-        for(int i = 0; i < n; i++)
-            cin>>a[i];
-        
-        int cd1 = INT_MIN, cd2 = INT_MIN;
-        unordered_set<int> st;
         int maxi = 0;
+        lp(i, 0, n)
+        {
+            cin>>a[i];
+            maxi = max(maxi, a[i]);
+        }
+        int pd = -1, nd = 1;
+        bool fl = true;
         for(int i = 0; i < n-1; i++)
         {
-            maxi = max(maxi, a[i]);
-            int cd = (a[i+1] - a[i]);
-            st.insert(abs(cd));
-            // cout<<cd<<endl;
-            if(cd1 == INT_MIN || cd1 == cd)
-                cd1 = cd;
-            else if(cd2 == INT_MIN || cd2 == cd)
-                cd2 = cd;
+            int d = a[i+1]-a[i];
+            if(d == 0)
+            {
+                if((pd != -1 && pd != 0) || nd != 1)
+                {
+                    fl = false;
+                    break;
+                }
+                pd = 0;
+            }
+            else if(d > 0)
+            {
+                if(pd != -1 && pd != d)
+                {
+                    fl = false;
+                    break;
+                }
+                pd = d;
+            }
+            else
+            {
+                if((nd != 1 && nd != d) || pd == 0)
+                {
+                    fl = false;
+                    break;
+                }
+                nd = d;
+            }
         }
-        maxi = max(maxi, a[n-1]);
-        // cout<<cd1<<" "<<cd2<<endl;
-        int c = (cd1 > 0) ? cd1 : cd2;
-        if(cd2 == INT_MIN || n <= 2)
+        if(!fl)
+        {
+            cout<<"-1\n";
+            continue;
+        }
+        if(pd == 0 || pd == -1 || nd == 1)
         {
             cout<<"0\n";
             continue;
         }
-        if(st.size() > 2 || c < 0)
+        if(pd+(-nd) <= maxi)
         {
-            // cout<<st.size()<<": \n";
             cout<<"-1\n";
             continue;
         }
-
-        cd1 = abs(cd1);
-        cd2 = abs(cd2);
-        if(cd1 == 0 || cd2 == 0)
-        {
-            // cout<<(cd1&cd2)<<endl;
-            cout<<"-1\n";
-            continue;
-        }
-        if(cd1+cd2 <= maxi)
-        {
-            // cout<<maxi<<endl;
-            cout<<"-1\n";
-            continue;
-        }
-
-        int m = (cd1+cd2);
-        cout<<m<<" "<<c<<"\n";
-        // cout<<maxi<<endl;
-        // if(m == 376040742)
-        // {
-        //     cout<<n<<": \n";
-        //     for(int x : a)
-        //         cout<<x<<" ";
-        //     cout<<endl;
-        // }
+        cout<<pd+(-nd)<<" "<<pd<<"\n";
     }
     return 0;
 }
