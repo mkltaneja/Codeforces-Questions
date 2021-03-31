@@ -69,16 +69,16 @@ int main()
     {
         int n;
         cin>>n;
-        
+
         vi a(n);
-        umii m;
+        omii m;
         lp(i, 0, n)
         {
             cin>>a[i];
             m[a[i]]++;
         }
         priority_queue<int> pq;
-        
+
         for(auto p : m)
         {
             pq.push(p.s);
@@ -91,9 +91,10 @@ int main()
             pq.pop();
             int y = pq.top();
             pq.pop();
+            x--, y--;
             // cout<<x<<" "<<y<<endl;
-            if(x-1 > 0) pq.push(x-1);
-            if(y-1 > 0) pq.push(y-1);
+            if(x) pq.push(x);
+            if(y) pq.push(y);
         }
 
         if(pq.empty()) cout<<"0\n";
