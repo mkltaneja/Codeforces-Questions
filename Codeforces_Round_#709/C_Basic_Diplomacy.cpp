@@ -60,6 +60,11 @@ using namespace std;
 #define rall(a) a.rbegin(), a.rend()
 #define fastio() {ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);}
 
+template<typename T> void qwq(T x){
+	if(x>9)qwq(x/10);
+	putchar(x%10+'0');
+}
+
 //////////////////////////////////////////////////////////////////MUKUL TANEJA///////////////////////////////////////////////////
 
 
@@ -94,7 +99,6 @@ int main()
         //     // cout<<p.f<<" "<<p.s<<endl;
         //     tot += min(p.s, (m+1)/2);
         // }
-        
         // if(tot < m)
         // {
         //     cout<<"NO\n";
@@ -130,9 +134,9 @@ int main()
             {
                 if(mp1[d[i][j]] < (m+1)/2)
                 {
+                    mp1[ans[i]]--;
                     ans[i] = d[i][j];
                     mp1[d[i][j]]++;
-                    mp1[x]--;
                     break;
                 }
             }
