@@ -6,6 +6,7 @@ using namespace std;
 #define ll long long int
 #define ull unsigned long long int
 #define pii pair<int,int>
+#define piv pair<int,vi>
 #define pib pair<int,bool>
 #define pbi pair<bool,int>
 #define pbb pair<bool,bool>
@@ -17,6 +18,7 @@ using namespace std;
 #define pss pair<string,string>
 #define vi vector<int>
 #define vvi vector<vi>
+#define vpiv vector<piv>
 #define vd vector<double>
 #define vvd vector<vd>
 #define vll vector<ll>
@@ -54,11 +56,12 @@ using namespace std;
 #define lpr(i, b, a) for(int i = b; i > a; i--)
 #define lpl(i, a, b) for(ll  i = a; i < b; i++)
 #define lplr(i, b, a) for(ll i = b; i > a; i--)
-#define all(a) (a.begin(), a.end())
-#define rall(a) (a.rbegin(), a.rend())
+#define all(a) a.begin(), a.end()
+#define rall(a) a.rbegin(), a.rend()
 #define fastio() {ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);}
 
 //////////////////////////////////////////////////////////////////MUKUL TANEJA///////////////////////////////////////////////////
+
 
 int main()
 {
@@ -71,63 +74,81 @@ int main()
         cin>>n>>m;
         umii mp;
         vvi d(m);
+        vi ans(m,0);
+        int x = 0;
         for(int i = 0; i < m; i++)
         {
             int k;
             cin>>k;
-            d[i].assign(k+1,0);
-            d[i][0] = i;
-            for(int j = 1; j <= k; j++)
+            d[i].assign(k,0);
+            for(int j = 0; j < k; j++)
             {
                 cin>>d[i][j];
                 mp[d[i][j]]++;
             }
         }
-        int ans = 0;
-        int maxi = (m+1)/2;
-        vpii tmp;
-        for(auto &p : mp)
+
+        // int tot = 0;
+        // for(auto p : mp)
+        // {
+        //     // cout<<p.f<<" "<<p.s<<endl;
+        //     tot += min(p.s, (m+1)/2);
+        // }
+        
+        // if(tot < m)
+        // {
+        //     cout<<"NO\n";
+        //     continue;
+        // }
+
+        lp(i, 0, m)
         {
-            int x = min(maxi, p.s);
-            ans += x;
-            p.s = x;
-            tmp.push_back(p);
-        }
-
-        if(ans < m)
-        {
-            cout<<"NO\n";
-            continue;
-        }
-
-        // sort(tmp.begin(), tmp.end(), [](const auto &p1, const auto &p2){
-        //     return (p1.s < p2.s);
-        // });
-        sort(d.begin(), d.end(), [](const auto &v1, const auto &v2){
-            return v1.size() < v2.size();
-        });
-
-        // mp.clear();
-
-        vi res(m);
-        for(int i = 0; i < m; i++)
-        {
-            int mini = INT_MAX, x = d[i][1];
-            for(int j = 1; j < d[i].size(); j++)
+            lp(j, 0, d[i].size())
             {
-                if(mp[d[i][j]] > 0 && mp[d[i][j]] < mini)
+                if(mp[d[i][j]] <= (m+1)/2)
                 {
-                    mini = mp[d[i][j]];
-                    x = d[i][j];
+                    ans[i] = d[i][j];
+                    break;
                 }
             }
-            mp[x]--;
-            res[d[i][0]] = x;
         }
-        cout<<"YES\n";
-        for(int x : res)
-            cout<<x<<" ";
-        cout<<endl;
+
+        umii mp1;
+        lp(i, 0, m)
+        {
+            if(ans[i]) continue;
+            ans[i] = d[i][0];
+            mp1[ans[i]]++;
+        }
+
+        lp(i, 0, m)
+        {
+            if(mp1[ans[i]] <= (m+1)/2)
+                continue;
+            // cout<<ans[i]<<" ";
+            for(int j = 0; j < d[i].size(); j++)
+            {
+                if(mp1[d[i][j]] < (m+1)/2)
+                {
+                    ans[i] = d[i][j];
+                    mp1[d[i][j]]++;
+                    mp1[x]--;
+                    break;
+                }
+            }
+        }
+        int mx = 0;
+        lp(i, 0, m)
+            mx = max(mx, mp1[ans[i]]);
+        if(mx > (m+1)/2)
+            cout<<"NO\n";
+        else
+        {
+            cout<<"YES\n";
+            for(int x : ans)
+                cout<<x<<" ";
+            cout<<"\n";
+        }
     }
     return 0;
 }
