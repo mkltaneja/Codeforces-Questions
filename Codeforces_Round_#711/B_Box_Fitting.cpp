@@ -54,9 +54,33 @@ using namespace std;
 #define lpr(i, b, a) for(int i = b; i > a; i--)
 #define lpl(i, a, b) for(ll  i = a; i < b; i++)
 #define lplr(i, b, a) for(ll i = b; i > a; i--)
-#define all(a) (a.begin(), a.end())
-#define rall(a) (a.rbegin(), a.rend())
+#define all(a) a.begin(), a.end()
+#define rall(a) a.rbegin(), a.rend()
 #define fastio() {ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);}
+#define mod 10000000007
+
+ll pow(ll a, ll b)
+{
+    ll ans = 1;
+    while(b)
+    {
+        if(b&1) ans *= a;
+        a *= a;
+        b >>= 1;
+    }
+    return ans;
+}
+ll powmod(ll a, ll b)
+{
+    ll ans = 1;
+    while(b)
+    {
+        if(b&1) ans = (ans*a)%mod;
+        a = (a*a)%mod;
+        b >>= 1;
+    }
+    return ans;
+}
 
 //////////////////////////////////////////////////////////////////MUKUL TANEJA///////////////////////////////////////////////////
 
@@ -70,9 +94,50 @@ int main()
         int n, k;
         cin>>n>>k;
         vi a(n);
+        omii m;
+        int maxi = 0, mini = INT_MAX;
         lp(i, 0, n)
+        {
             cin>>a[i];
-        
-    }
+            m[a[i]]++;
+            mini = min(mini, a[i]);
+            maxi = max(mini, a[i]);
+        }
+
+        int nn = maxi, sz = 0;
+        while(nn)
+        {
+            sz++;
+            nn >>= 1;
+        }
+        vpii pt;
+        for(auto p : m)
+            pt.push_back({p.f, p.s});
+        sort(all(pt));
+        // for(int i = 0; i < pt.size(); i++)
+        //     cout<<(1<<i)<<" "<<pt[i]<<endl;
+
+        int rem = n, ans = 0;
+        while(rem > 0)
+        {
+            int  w = k;
+            for(int i = pt.size()-1; i >= 0; i--)
+            {
+                if(w < mini)
+                    break;
+                if(pt[i].s)
+                {
+                    int x = min(pt[i].s, w/(pt[i].f));
+                    rem -= x;
+                    w -= x*(pt[i].f);
+                    pt[i].s -= x;
+                    // cout<<(pt[i].f)<<" "<<x<<endl;
+                }
+            }
+            // cout<<endl;
+            ans++;
+        }
+        cout<<ans<<endl;
+    }    
     return 0;
 }

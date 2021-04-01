@@ -57,6 +57,30 @@ using namespace std;
 #define all(a) (a.begin(), a.end())
 #define rall(a) (a.rbegin(), a.rend())
 #define fastio() {ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);}
+#define mod 10000000007
+
+ll pow(ll a, ll b)
+{
+    ll ans = 1;
+    while(b)
+    {
+        if(b&1) ans *= a;
+        a *= a;
+        b >>= 1;
+    }
+    return ans;
+}
+ll powmod(ll a, ll b)
+{
+    ll ans = 1;
+    while(b)
+    {
+        if(b&1) ans = (ans*a)%mod;
+        a = (a*a)%mod;
+        b >>= 1;
+    }
+    return ans;
+}
 
 //////////////////////////////////////////////////////////////////MUKUL TANEJA///////////////////////////////////////////////////
 
@@ -80,7 +104,7 @@ int main()
     {
         ull n;
         cin>>n;
-        cout<<t<<" "<<n<<endl;
+        // cout<<t<<" "<<n<<endl;
         while(true)
         {
             int g = __gcd(n, sum(n));
