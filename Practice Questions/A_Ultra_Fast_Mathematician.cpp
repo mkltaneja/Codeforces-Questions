@@ -106,68 +106,12 @@ ull sum(ull n)
 int main()
 {
     fastio();
-    int t;
-    cin>>t;
-    while(t--)
-    {
-        int n;
-        cin>>n;
-        string ss;
-        cin>>ss;
-        if((n&1) || ss[0] == '0' || ss[n-1] == '0')
-        {
-            cout<<"NO\n";
-            continue;
-        }
-        int x = 0;
-        for(char c : ss)
-            if(c == '0')
-                x++;
-        if(x&1)
-        {
-            cout<<"NO\n";
-            continue;
-        }
-        cout<<"YES\n";
-        string a="", b="";
-        int f0 = 1, f1 = 1;
-        a += "(";
-        b += "(";
-        for(int i = 1; i < n-1; i++)
-        {
-            char c = ss[i];
-            if(c == '0')
-            {
-                if(f0)
-                {
-                    a += "(";
-                    b += ")";
-                }
-                else 
-                {
-                    a += ")";
-                    b += "(";
-                }
-                f0 ^= 1;
-            }
-            else 
-            {
-                if(f1) 
-                {
-                    a += "(";
-                    b += "(";
-                }
-                else 
-                {
-                    a += ")";
-                    b += ")";
-                }
-                f1 ^= 1;
-            }
-        }
-        a += ")";
-        b += ")";
-        cout<<a<<"\n"<<b<<"\n";
-    }
+    string a, b;
+    cin>>a>>b;
+    string ans="";
+
+    for(int i = 0; i < a.size(); i++)
+        ans += to_string((a[i]-'0')^(b[i]-'0'));
+    cout<<ans<<endl;
     return 0;
 }

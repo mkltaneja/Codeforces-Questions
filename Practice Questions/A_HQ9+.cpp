@@ -106,68 +106,18 @@ ull sum(ull n)
 int main()
 {
     fastio();
-    int t;
-    cin>>t;
-    while(t--)
+    string a;
+    cin>>a;
+    bool fl = false;
+    for(char c : a)
     {
-        int n;
-        cin>>n;
-        string ss;
-        cin>>ss;
-        if((n&1) || ss[0] == '0' || ss[n-1] == '0')
+        if(c == 'H' || c == 'Q' || c == '9')
         {
-            cout<<"NO\n";
-            continue;
+            fl = true;
+            break;
         }
-        int x = 0;
-        for(char c : ss)
-            if(c == '0')
-                x++;
-        if(x&1)
-        {
-            cout<<"NO\n";
-            continue;
-        }
-        cout<<"YES\n";
-        string a="", b="";
-        int f0 = 1, f1 = 1;
-        a += "(";
-        b += "(";
-        for(int i = 1; i < n-1; i++)
-        {
-            char c = ss[i];
-            if(c == '0')
-            {
-                if(f0)
-                {
-                    a += "(";
-                    b += ")";
-                }
-                else 
-                {
-                    a += ")";
-                    b += "(";
-                }
-                f0 ^= 1;
-            }
-            else 
-            {
-                if(f1) 
-                {
-                    a += "(";
-                    b += "(";
-                }
-                else 
-                {
-                    a += ")";
-                    b += ")";
-                }
-                f1 ^= 1;
-            }
-        }
-        a += ")";
-        b += ")";
-        cout<<a<<"\n"<<b<<"\n";
     }
+    if(fl) cout<<"YES\n";
+    else cout<<"NO\n";
     return 0;
 }
