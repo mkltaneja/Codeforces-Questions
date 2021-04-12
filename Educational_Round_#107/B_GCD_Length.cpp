@@ -112,24 +112,18 @@ int main()
     {
         int a, b, c, x=1, y=1;
         cin>>a>>b>>c;
-        bool fl = false;
-        if(a < b) 
+        a--, b--, c--;
+        if(a < b)
         {
-            fl = true;
-            swap(a, b);
+            x = pow(10, a);
+            y = pow(10, b) + pow(10, c);
         }
-        // a--;
-        // cout<<a<<", "<<b<<", "<<c<<": \n";
-        while(--a) x *= 10;
-        int cnt = (b-c);
-        while(cnt--)
+        else
         {
-            y *= 10;
-            y++;
+            y = pow(10, b);
+            x = pow(10, a) + pow(10, c);
         }
-        y *= pow(10, c-1);
-        if(fl) cout<<y<<" "<<x<<endl;
-        else cout<<x<<" "<<y<<endl;
+        cout<<x<<" "<<y<<endl;
     }
     return 0;
 }
