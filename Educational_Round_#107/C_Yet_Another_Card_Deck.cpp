@@ -122,7 +122,7 @@ int main()
     {
         cin>>x;
         cout<<col[x]<<" ";
-        for(int i = 1; i <= 50; i++) if(col[i] && col[i] < col[x]) col[i]++;
+        for(int i = 1; i <= 50; i++) if(col[i] < col[x]) col[i]++;
         col[x] = 1;
     }
     cout<<endl;
