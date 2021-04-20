@@ -113,42 +113,22 @@ ull sum(ull n)
 int main()
 {
     fastio();
-    int t;
-    cin>>t;
-    while(t--)
+    int n;
+    cin>>n;
+
+    ull p = 1;
+    vb ans(n);
+    for(int x = 1; x <= n-1; x++)
     {
-        int n;
-        cin>>n;
-        string ss;
-        cin>>ss;
-        int tt = 0, mm = 0;
-        bool fl = true;
-        for(char c : ss)
+        if(__gcd(x, n) == 1)
         {
-            if(c == 'T') tt++;
-            else 
-            {
-                if(++mm > tt)
-                    fl = false;
-            }
+            p = (p*x)%n;
+            ans[x] = 1;
         }
-        if(tt != 2*mm || !fl)
-        {
-            // cout<<tt<<" "<<mm<<" - "<<fl<<endl;
-            cout<<"NO\n";
-            continue;
-        }
-        mm = 0, tt = 0;
-        for(int i = n-1; i >= 0; i--)
-        {
-            if(ss[i] == 'T') tt++;
-            else 
-            {
-                if(++mm > tt)
-                    fl = false;
-            }
-        }
-        if(!fl) cout<<"NO\n";
-        else cout<<"YES\n";
     }
+    if(p != 1)
+        ans[p] = 0;
+    cout<<count(ans.begin(), ans.end(), 1)<<"\n";
+    for(int i = 1; i < ans.size(); i++) if(ans[i]) cout<<i<<" ";
+    cout<<"\n";
 }
