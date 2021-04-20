@@ -111,64 +111,20 @@ int main()
     int n;
     cin >> n;
     vi a(n);
-    umii m;
     lp(i, 0, n)
-    {
         cin>>a[i];
-        m[a[i]]++;
-    }
 
     sort(all(a));
-    // for(int x : a) cout<<x<<" \n";
 
-    vi ans(n);
-    int mini = INT_MAX;
+    vvi dp(n, vi(n, -1));
 
-    for(int i = 0; i < n; i++)
+    for(int gap = 0; gap < n; gap++)
     {
-        int j = i-1, k = i+1;
-        int mx = a[i], mn = a[i];
-        int d = 0;
-        vi temp(n);
-        int x = 0;
-        temp[x++] = a[i];
-        while(j >= 0 || k < n)
+        for(int l = 0, r = gap;  )
         {
-            if(j >= 0 && k < n)
-            {
-                if(m[a[j]] > 1 || m[a[k]] > 1)
-                {
-                    if(m[a[j]] > m[a[k]])
-                        mn = a[j--], temp[x++] = mn;
-                    else
-                        mx = a[k++], temp[x++] = mx;
-                }
-                else if((mx-a[j]) < (a[k]-mn))
-                    mn = a[j--], temp[x++] = mn;
-                else
-                    mx = a[k++], temp[x++] = mx;
-            }
-            else if(j >= 0) 
-                mn = a[j--], temp[x++] = mn;
-            else if(k < n)
-                mx = a[k++], temp[x++] = mx;
-            d += (mx - mn);
-            // cout<<mx<<" "<<mn<<endl;
-            // cout<<a[i]<<":  "<<a[j]<<" "<<a[k]<<endl;
-        }
-        cout<<d<<": ";
-        cout<<endl;
-        if(d < mini)
-        {
-            mini = d;
-            cout<<"mind = "<<mini<<"\n";
-            ans = temp;
+
         }
     }
-
-    cout<<mini<<"\n";
-    // for(int x : ans) cout<<x<<" ";
-    // cout<<"\n";
 
     return 0;
 }
