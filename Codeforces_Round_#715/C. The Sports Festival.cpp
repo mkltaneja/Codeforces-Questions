@@ -55,9 +55,9 @@ using namespace std;
 #define lpl(i, a, b) for (ll i = a; i < b; i++)
 #define lplr(i, b, a) for (ll i = b; i > a; i--)
 #define all(a) a.begin(), a.end()
-#define rall(a) (a.rbegin(), a.rend())
+#define rall(a) a.rbegin(), a.rend()
 #define fastio(){ios_base::sync_with_stdio(false); cin.tie(NULL);cout.tie(NULL);}
-#define mod 10000000007
+#define mod 1000000007
 
 ll binpow(ll a, ll b)
 {
@@ -105,6 +105,13 @@ ull sum(ull n)
 
 //////////////////////////////////////////////////////////////////MUKUL TANEJA///////////////////////////////////////////////////
 
+ull dfs(int l, int r, vi &a, vvull &dp)
+{
+    if(dp[l][r] != -1) return dp[l][r];
+    if(l == r) return 0;
+    return dp[l][r] = (a[r]-a[l]) + min(dfs(l+1, r, a, dp), dfs(l, r-1, a, dp));
+}
+
 int main()
 {
     fastio();
@@ -116,15 +123,10 @@ int main()
 
     sort(all(a));
 
-    vvi dp(n, vi(n, -1));
-
-    for(int gap = 0; gap < n; gap++)
-    {
-        for(int l = 0, r = gap;  )
-        {
-
-        }
-    }
+    vvull dp(n, vull(n, -1));
+    ull ans = dfs(0, n-1, a, dp);
+    
+    cout<<ans<<"\n";
 
     return 0;
 }
