@@ -56,7 +56,12 @@ using namespace std;
 #define lplr(i, b, a) for (ll i = b; i > a; i--)
 #define all(a) a.begin(), a.end()
 #define rall(a) a.rbegin(), a.rend()
-#define fastio(){ios_base::sync_with_stdio(false); cin.tie(NULL);cout.tie(NULL);}
+#define fastio()                          \
+    {                                     \
+        ios_base::sync_with_stdio(false); \
+        cin.tie(NULL);                    \
+        cout.tie(NULL);                   \
+    }
 #define mod 1000000007
 
 ll binpow(ll a, ll b)
@@ -96,23 +101,30 @@ bool ispal(string &a)
 
 void solve(int n, vi &a)
 {
-
+    int sum = 0;
+    bitset<200005> b;
+    b[0] = 1;
+    int mn = INT_MAX, mni = -1;
+    for (int i = 0; i < n; i++)
+    {
+        int x = a[i];
+        sum += x;
+        b |= (b << x);
+        if((x & -x) < mn) mn = (x & -x), mni = i+1;
+    }
+    // cout<<b<<endl;
+    if ((sum&1) || !b[sum/2]) cout << "0\n";
+    else cout<<"1\n"<<mni<<"\n";
 }
 
 int main()
 {
     fastio();
-    int t;
-    cin >> t;
-    while(t--)
-    {
-        int n;
-        cin>>n;
-        vi a(n);
-        lp(i, 0, n)
-            cin>>a[i];
+    int n;
+    cin >> n;
+    vi a(n);
+    lp(i, 0, n) cin >> a[i];
 
-        solve(n, a);
-    }
+    solve(n, a);
     return 0;
 }
