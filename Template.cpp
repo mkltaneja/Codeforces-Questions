@@ -92,6 +92,22 @@ bool ispal(string &a)
     return true;
 }
 
+void display(int n, vi &a)
+{
+    for(int x : a) cout<<x<<" ";
+    cout<<"\n";
+}
+void display(int n, int m, vvi &a)
+{
+    lp(i, 0, n)
+    {
+        lp(j, 0, m)
+            cout<<a[i][j]<<" ";
+        cout<<"\n";
+    }
+    cout<<"\n";
+}
+
 //////////////////////////////////////////////////////////////////MUKUL TANEJA///////////////////////////////////////////////////
 
 void solve(int n, vi &a)
@@ -110,7 +126,7 @@ int main()
         cin>>n;
         vi a(n);
         lp(i, 0, n)
-            cin>>a[i];
+            cin >> a[i];
 
         solve(n, a);
     }

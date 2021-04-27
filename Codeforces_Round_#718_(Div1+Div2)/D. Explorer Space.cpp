@@ -92,27 +92,71 @@ bool ispal(string &a)
     return true;
 }
 
+void display(int n, vi &a)
+{
+    for(int x : a) cout<<x<<" ";
+    cout<<"\n";
+}
+void display(int n, int m, vvi &a)
+{
+    lp(i, 0, n)
+    {
+        lp(j, 0, m)
+            cout<<a[i][j]<<" ";
+        cout<<"\n";
+    }
+    cout<<"\n";
+}
+
 //////////////////////////////////////////////////////////////////MUKUL TANEJA///////////////////////////////////////////////////
 
-void solve(int n, vi &a)
+void solve(int n, int m, int k, vvi &h, vvi &v)
 {
+    vvi ans(n, vi(m, INT_MAX));
+    if(k&1)
+        ans.assign(n, vi(m, -1));
+    else 
+    {
+        vvi pans(n, vi(m,0));
+        lp(kk, 0, k/2)
+        {
+            lp(i, 0, n)
+            {
+                lp(j, 0, m)
+                {
+                    ans[i][j] = INT_MAX;
+                    if(i > 0)
+                        ans[i][j] = min(ans[i][j], pans[i-1][j] + 2*v[i-1][j]);
+                    if(j > 0)
+                        ans[i][j] = min(ans[i][j], pans[i][j-1] + 2*h[i][j-1]);
+                    if(i < n-1)
+                        ans[i][j] = min(ans[i][j], pans[i+1][j] + 2*v[i][j]);
+                    if(j < m-1)
+                        ans[i][j] = min(ans[i][j], pans[i][j+1] + 2*h[i][j]);
+                }
+            }
+            pans = ans;
+        }
+    }
 
+    display(n, m, ans);
 }
 
 int main()
 {
     fastio();
-    int t;
-    cin >> t;
-    while(t--)
-    {
-        int n;
-        cin>>n;
-        vi a(n);
-        lp(i, 0, n)
-            cin>>a[i];
-
-        solve(n, a);
-    }
+    int n, m, k;
+    cin>>n>>m>>k;
+    vvi h(n, vi(m-1));
+    vvi v(n-1, vi(m));
+    lp(i, 0, n)
+        lp(j, 0, m-1)
+            cin>>h[i][j];
+    lp(i, 0, n-1)
+        lp(j, 0, m)
+            cin>>v[i][j];
+    // display(n, m-1, h);
+    // display(n-1, m, v);
+    solve(n, m, k, h, v);
     return 0;
 }
