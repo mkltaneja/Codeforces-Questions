@@ -110,65 +110,28 @@ void display(int n, int m, vvi &a)
 
 //////////////////////////////////////////////////////////////////MUKUL TANEJA///////////////////////////////////////////////////
 
-void solve(int n, int a, int b, umii &ml, umii &mr, vi &v)
+void solve(int n, int l, int r, vi &ml, vi &mr)
 {
+    for(int i = 1; i <= n; i++)
+    {
+        int mn = min(ml[i], mr[i]);
+        ml[i] -= mn;
+        mr[i] -= mn;
+        l -= mn;
+        r -= mn;
+    }
     int ans = 0;
-    if(a < b)
+    for(int i = 1; i <= n; i++)
     {
-        for(auto &p : mr)
-        {
-            while(a < b && p.s > ml[p.f] && p.s-ml[p.f] >= 2)
-            {
-                p.s--;
-                ml[p.f]++;
-                a++, b--;
-                ans++;
-            }
-        }
-    }
-    if(a < b)
-    {
-        for(auto &p : mr)
-        {
-            while(a < b && p.s > ml[p.f] && p.s-ml[p.f] >= 1)
-            {
-                p.s--;
-                ml[p.f]++;
-                a++, b--;
-                ans++;
-            }
-        }
+        int give = mr[i]/2;  // right can give atmost half of its count
+        int diff = r-l;  // always even
+        int shift = min(2*give, diff);  // shift right to left
+        ans += shift/2;
+        r -= shift;
     }
 
-    // for(auto p : ml)
-    //     cout<<p.f<<" -> "<<p.s<<",  ";
-    // cout<<endl;
-    // for(auto p : mr)
-    //     cout<<p.f<<" -> "<<p.s<<",  ";
-    // cout<<endl;
-
-    int x = 0, y = 0;
-    for(auto p : ml)
-    {
-        if(p.s)
-        {
-            x += abs(p.s - mr[p.f]);
-            // cout<<p.f<<" -> "<<abs(p.s - mr[p.f])<<",  ";
-        }
-    }
-    // cout<<endl;
-    for(auto p : mr)
-    {
-        if(p.s)
-        {
-            y += abs(p.s - ml[p.f]);
-            // cout<<p.f<<" -> "<<abs(p.s - ml[p.f])<<",  ";
-        }
-    }
-    // cout<<endl;
-    // cout<<x<<", "<<y<<": \n";
-    ans += min(x, y);
-    cout<<ans<<endl;
+    ans += (r-l)/2 + (r+l)/2;
+    cout<<ans<<"\n";
 }
 
 int main()
@@ -180,18 +143,18 @@ int main()
     {
         int n,l,r;
         cin>>n>>l>>r;
-        vi a(n);
-        umii ml, mr;
+        vi ml(n+1), mr(n+1);
         int temp = l;
         lp(i, 0, n)
         {
-            cin >> a[i];
-            if(temp) ml[a[i]]++, temp--;
-            else mr[a[i]]++;
+            int x;
+            cin>>x;
+            if(temp) ml[x]++, temp--;
+            else mr[x]++;
         }
 
-        if(l <= r) solve(n, l, r, ml, mr, a);
-        else solve(n, r, l, mr, ml, a);
+        if(l <= r) solve(n, l, r, ml, mr);
+        else solve(n, r, l, mr, ml);
     }
     return 0;
 }

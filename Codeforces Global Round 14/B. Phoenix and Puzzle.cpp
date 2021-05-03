@@ -134,25 +134,33 @@ void solve(int n)
     // cout<<p<<", "<<ceil(sqrt(p))<<", "<<floor(sqrt(p))<<endl;
     if(ceil(sqrt(p)) == floor(sqrt(p))) cout<<"YES\n";
     else cout<<"NO\n";
-    // long x = 1;
-    // while(2*x*x < n)
-    //     x++;
-    // if((n & (n-1)) == 0) 
-    // {
-    //     cout<<"YES\n";
-    //     return;
-    // }
+}
 
-    // long p = 8, x = 4;
-    // while(p < n)
-    // {
-    //     p += 2*x+2;
-    //     x += 2;
-    //     cout<<p<<endl;
-    // }
-    // cout<<x<<endl<<endl;
-    // if(2*x*x == n) cout<<"YES\n";
-    // else cout<<"NO\n";
+bool isSquare(double n)
+{
+    // double root = pow(2, 0.5*log2(n));
+    int root = sqrt(n);
+    return root*root == n;
+}
+
+void solve2(int n)
+{
+    if(n&1)
+    {
+        cout<<"NO\n";
+        return;
+    }
+    if(n%2 == 0 && isSquare(n/2))
+    {
+        cout<<"YES\n";
+        return;
+    }
+    if(n%4 == 0 && isSquare(n/4))
+    {
+        cout<<"YES\n";
+        return;
+    }
+    cout<<"NO\n";
 }
 
 int main()
@@ -164,7 +172,9 @@ int main()
     {
         int n;
         cin>>n;
-        solve(n);
+        // solve(n);
+        // OR
+        solve2(n);
     }
     return 0;
 }

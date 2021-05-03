@@ -112,7 +112,7 @@ void display(int n, int m, vvi &a)
 
 void solve(int n, vi &a)
 {
-
+    
 }
 
 int main()
@@ -128,6 +128,7 @@ int main()
         lp(i, 0, n)
         {
             cin >> a[i];
+        }
 
         solve(n, a);
     }
