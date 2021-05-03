@@ -110,9 +110,28 @@ void display(int n, int m, vvi &a)
 
 //////////////////////////////////////////////////////////////////MUKUL TANEJA///////////////////////////////////////////////////
 
-void solve(int n, vi &a)
+void solve(int n, int m, int x, vi &a)
 {
-    
+    set<pair<int,int>> st;
+    lp(i, 1, m+1)
+        st.insert({0,i});
+    vi ans(n);
+    int mn = INT_MAX, mx = INT_MIN;
+    lp(i, 0, n)
+    {
+        auto p = *st.begin();
+        st.erase(st.begin());
+        st.insert({p.f + a[i], p.s});
+        ans[i] = p.s;
+    }
+    for(auto p : st)
+        mx = max(mx, p.f), mn = min(mn, p.f);
+    if(mx - mn > x) cout<<"NO\n";
+    else 
+    {
+        cout<<"YES\n";
+        display(n, ans);
+    }
 }
 
 int main()
@@ -122,15 +141,13 @@ int main()
     cin >> t;
     while(t--)
     {
-        int n,l,r;
-        cin>>n>>l>>r;
+        int n,m,x;
+        cin>>n>>m>>x;
         vi a(n);
         lp(i, 0, n)
-        {
             cin >> a[i];
-        }
 
-        solve(n, a);
+        solve(n, m, x, a);
     }
     return 0;
 }
