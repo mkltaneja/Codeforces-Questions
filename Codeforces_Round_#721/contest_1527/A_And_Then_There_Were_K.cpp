@@ -136,6 +136,17 @@ void solve(int n)
     cout<<nn-cnt<<"\n";
 }
 
+void solve2(int n)
+{
+    int msbi = 0;
+    while(n)
+    {
+        n >>= 1;
+        msbi++;
+    }
+    cout<<(1 << (msbi-1))-1<<"\n";
+}
+
 int main()
 {
     fastio();
@@ -145,7 +156,8 @@ int main()
     {
         int n;
         cin>>n;
-        solve(n);
+        // solve(n);
+        solve2(n);
     }
     return 0;
 }
