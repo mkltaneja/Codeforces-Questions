@@ -110,9 +110,37 @@ void display(int n, int m, vvi &a)
 
 //////////////////////////////////////////////////////////////////MUKUL TANEJA///////////////////////////////////////////////////
 
-void solve(int n, vi &a)
+void solve(int a, int b, int k)
 {
+    int mn, mx = 0;
+    
+    if(a == b) mn = 0;
+    else if(__gcd(a, b) == min(a, b))
+        mn = 1;
+    else mn = 2;
 
+    for(int i = 2; i*i <= a; i++)
+    {
+        while(a % i == 0)
+        {
+            a /= i;
+            mx++;
+        }
+    }
+    if(a > 1) mx++;
+    for(int i = 2; i*i <= b; i++)
+    {
+        while(b % i == 0)
+        {
+            b /= i;
+            mx++;
+        }
+    }
+    if(b > 1) mx++;
+
+    bool ans = ((k >= mn && k <= mx) && (mn != 0 || k != 1));
+    if(ans) cout<<"YES\n";
+    else cout<<"NO\n";
 }
 
 int main()
@@ -122,13 +150,9 @@ int main()
     cin >> t;
     while(t--)
     {
-        int n;
-        cin>>n;
-        vi a(n);
-        lp(i, 0, n)
-            cin >> a[i];
-
-        solve(n, a);
+        int a, b, k;
+        cin>>a>>b>>k;
+        solve(a, b, k);
     }
     return 0;
 }
