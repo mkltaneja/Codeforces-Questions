@@ -130,9 +130,27 @@ vector<int> findfacs(int n)
 
 //////////////////////////////////////////////////////////////////MUKUL TANEJA///////////////////////////////////////////////////
 
-void solve(int n, vi &a)
+bool solve(int n, int m, int k, vi &a)
 {
+    ull tot = 0;
+    bool fl = false;
+    for(int i = 0; i < k; i++)
+    {
+        fl |= a[i]/n > 2;
+        tot += a[i]/n >= 2? a[i]/n : 0;
+    }
+    if(tot >= m && ((m&1^1) || fl)) return true;
     
+    tot = 0;
+    fl = false;
+    for(int i = 0; i < k; i++)
+    {
+        fl |= a[i]/m > 2;
+        tot += a[i]/m >= 2? a[i]/m : 0;
+    }
+    if(tot >= n && ((n&1^1) || fl)) return true;
+    
+    return false;
 }
 
 int main()
@@ -140,15 +158,17 @@ int main()
     fastio();
     int t;
     cin >> t;
-    while(t--)
+    while(t--) 
     {
-        int n;
-        cin>>n;
-        vi a(n);
-        lp(i, 0, n)
+        int n,m,k;
+        cin>>n>>m>>k;
+        vi a(k);
+        lp(i, 0, k)
             cin >> a[i];
 
-        solve(n, a);
+        bool ans = solve(n, m, k, a);
+        if(ans) cout<<"Yes\n";
+        else cout<<"No\n";
     }
     return 0;
 }
