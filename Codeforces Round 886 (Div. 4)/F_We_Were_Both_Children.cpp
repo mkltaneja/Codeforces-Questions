@@ -12,7 +12,7 @@
 #include <math.h>
 #include <numeric>
 using namespace std;
-
+ 
 #define f first
 #define s second
 #define ll long long int
@@ -78,10 +78,10 @@ using namespace std;
         cin.tie(NULL);                    \
         cout.tie(NULL);                   \
     }
-
+ 
 int mod = 1000000007;
 int MX = 1e5 + 5;
-
+ 
 ll binpow(ll a, ll b)
 {
     ll ans = 1;
@@ -106,7 +106,7 @@ ll binpowmod(ll a, ll b)
     }
     return ans;
 }
-
+ 
 bool ispal(string &a)
 {
     for (int i = 0; i < a.size() / 2; i++)
@@ -114,7 +114,7 @@ bool ispal(string &a)
             return false;
     return true;
 }
-
+ 
 void display(int n, vi &a)
 {
     for (int x : a)
@@ -132,12 +132,12 @@ void display(int n, int m, vvi &a)
     }
     cout << "\n";
 }
-
+ 
 int gcd(ll a, ll b)
 {
     return b < a ? gcd(b, a) : (b % a == 0 ? a : gcd(b % a, a));
 }
-
+ 
 class ftree
 {
 public:
@@ -148,7 +148,7 @@ public:
         this->sz = sz;
         this->ft.assign(sz, 0);
     }
-
+ 
     void add(int x)
     {
         while (x < sz)
@@ -157,7 +157,7 @@ public:
             x += x & -x;
         }
     }
-
+ 
     ll get(int x)
     {
         ll ans = 0;
@@ -166,13 +166,13 @@ public:
             ans += ft[x];
             x -= x & -x;
         }
-
+ 
         return ans;
     }
 };
-
+ 
 //////////////////////////////////////////////////////////////////MUKUL TANEJA///////////////////////////////////////////////////
-
+ 
 void solve(int n, vi &a)
 {
     vi cnt(n+1);
@@ -180,13 +180,13 @@ void solve(int n, vi &a)
     lp(i, 0, n)
         mp[a[i]]++;
     
-    lp(x, 1, n)
+    lp(x, 1, n+1)
     {
         cnt[x] += mp[1];
-        cnt[x] += mp[x];
+        if(x != 1)
+            cnt[x] += mp[x];
         for (int i = 2; i * i <= x; i++) 
         {
-            int power = 0;
             if(x % i == 0) 
             {
                 cnt[x] += mp[i];
@@ -194,19 +194,21 @@ void solve(int n, vi &a)
             }
         }
     }
-
+ 
     int ans = -1, mx = -1;
     lp(i, 1, n+1)
     {
+        // cout<<cnt[i]<<", ";
         if(cnt[i] > mx)
         {
             mx = cnt[i];
             ans = i;
         }
     }
+    // cout<<endl;
     cout<<mx<<endl;
 }
-
+ 
 int main()
 {
     fastio();
@@ -220,11 +222,11 @@ int main()
         vi a(n);
         lp(i, 0, n)
             cin>>a[i];
-
+ 
         solve(n, a);
     }
     return 0;
 }
-
+ 
 // g++ A.cpp -o out -std=c++11
 // -std=c++11
