@@ -12,7 +12,7 @@
 #include <math.h>
 #include <numeric>
 using namespace std;
-
+ 
 #define f first
 #define s second
 #define ll long long int
@@ -78,10 +78,10 @@ using namespace std;
         cin.tie(NULL);                    \
         cout.tie(NULL);                   \
     }
-
+ 
 int mod = 1000000007;
 int MX = 1e5 + 5;
-
+ 
 ll binpow(ll a, ll b)
 {
     ll ans = 1;
@@ -106,7 +106,7 @@ ll binpowmod(ll a, ll b)
     }
     return ans;
 }
-
+ 
 bool ispal(string &a)
 {
     for (int i = 0; i < a.size() / 2; i++)
@@ -114,7 +114,7 @@ bool ispal(string &a)
             return false;
     return true;
 }
-
+ 
 void display(int n, vi &a)
 {
     for (int x : a)
@@ -132,12 +132,12 @@ void display(int n, int m, vvi &a)
     }
     cout << "\n";
 }
-
+ 
 int gcd(ll a, ll b)
 {
     return b < a ? gcd(b, a) : (b % a == 0 ? a : gcd(b % a, a));
 }
-
+ 
 class ftree
 {
 public:
@@ -148,7 +148,7 @@ public:
         this->sz = sz;
         this->ft.assign(sz, 0);
     }
-
+ 
     void add(int x)
     {
         while (x < sz)
@@ -157,7 +157,7 @@ public:
             x += x & -x;
         }
     }
-
+ 
     ll get(int x)
     {
         ll ans = 0;
@@ -166,20 +166,31 @@ public:
             ans += ft[x];
             x -= x & -x;
         }
-
+ 
         return ans;
     }
 };
-
+ 
 //////////////////////////////////////////////////////////////////MUKUL TANEJA///////////////////////////////////////////////////
-
-void solve(int a, int b, int c)
+ 
+void solve(int n, int k, vi &a)
 {
-    if(a+b >= 10 || a+c >= 10 || b+c >= 10)
-        cout<<"YES\n";
-    else cout<<"NO\n";
+    sort(all(a));
+    int mlen = 0, p = 0, px = a[0];
+    lp(i, 1, n)
+    {
+        if(a[i] - px > k)
+        {
+            // cout<<a[i]<<", "<<px<<endl;
+            mlen = max(mlen, i - p);
+            p = i;
+        }
+        px = a[i];
+    }
+    mlen = max(mlen, n - p);
+    cout<<n - mlen<<endl;
 }
-
+ 
 int main()
 {
     fastio();
@@ -188,13 +199,16 @@ int main()
     cin >> t;
     while (t--)
     {
-        int a,b,c;
-        cin >> a>>b>>c;
-
-        solve(a, b, c);
+        int n, k;
+        cin >> n >> k;
+        vi a(n);
+        lp(i, 0, n)
+            cin>>a[i];
+ 
+        solve(n, k, a);
     }
     return 0;
 }
-
+ 
 // g++ A.cpp -o out -std=c++11
 // -std=c++11
