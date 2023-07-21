@@ -12,7 +12,7 @@
 #include <math.h>
 #include <numeric>
 using namespace std;
-
+ 
 #define f first
 #define s second
 #define ll long long int
@@ -78,10 +78,10 @@ using namespace std;
         cin.tie(NULL);                    \
         cout.tie(NULL);                   \
     }
-
+ 
 int mod = 1000000007;
 int MX = 1e5 + 5;
-
+ 
 ll binpow(ll a, ll b)
 {
     ll ans = 1;
@@ -106,7 +106,7 @@ ll binpowmod(ll a, ll b)
     }
     return ans;
 }
-
+ 
 bool ispal(string &a)
 {
     for (int i = 0; i < a.size() / 2; i++)
@@ -114,7 +114,7 @@ bool ispal(string &a)
             return false;
     return true;
 }
-
+ 
 void display(int n, vi &a)
 {
     for (int x : a)
@@ -132,12 +132,12 @@ void display(int n, int m, vvi &a)
     }
     cout << "\n";
 }
-
+ 
 int gcd(ll a, ll b)
 {
     return b < a ? gcd(b, a) : (b % a == 0 ? a : gcd(b % a, a));
 }
-
+ 
 class ftree
 {
 public:
@@ -148,7 +148,7 @@ public:
         this->sz = sz;
         this->ft.assign(sz, 0);
     }
-
+ 
     void add(int x)
     {
         while (x < sz)
@@ -157,7 +157,7 @@ public:
             x += x & -x;
         }
     }
-
+ 
     ll get(int x)
     {
         ll ans = 0;
@@ -166,30 +166,43 @@ public:
             ans += ft[x];
             x -= x & -x;
         }
-
+ 
         return ans;
     }
 };
-
+ 
 //////////////////////////////////////////////////////////////////MUKUL TANEJA///////////////////////////////////////////////////
-
+ 
 void solve(int n, vvi &a)
 {
-    umii mpx, mpy, mpd;
+    umii mpx, mpy, mpd, mps;
     lp(i, 0, n)
     {
         mpx[a[i][0]]++;
         mpy[a[i][1]]++;
-        mpd[abs(a[i][0] - a[i][1])]++;
+        mpd[a[i][1] - a[i][0]]++;
+        mps[a[i][1] + a[i][0]]++;
     }
     ll ans = 0;
     for(auto p : mpx)
     {
         ans += 1ll * p.s * (p.s - 1);
     }
+    for(auto p : mpy)
+    {
+        ans += 1ll * p.s * (p.s - 1);
+    }
+    for(auto p : mpd)
+    {
+        ans += 1ll * p.s * (p.s - 1);
+    }
+    for(auto p : mps)
+    {
+        ans += 1ll * p.s * (p.s - 1);
+    }
     cout<<ans<<endl;
 }
-
+ 
 int main()
 {
     fastio();
@@ -203,11 +216,11 @@ int main()
         vvi a(n, vi(2));
         lp(i, 0, n)
             cin>>a[i][0]>>a[i][1];
-
+ 
         solve(n, a);
     }
     return 0;
 }
-
+ 
 // g++ A.cpp -o out -std=c++11
 // -std=c++11
