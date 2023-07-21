@@ -12,7 +12,7 @@
 #include <math.h>
 #include <numeric>
 using namespace std;
-
+ 
 #define f first
 #define s second
 #define ll long long int
@@ -80,10 +80,10 @@ using namespace std;
         cout.tie(NULL);                   \
     }
 #define p_b push_back
-
+ 
 int mod = 1000000007;
 int MX = 1e5 + 5;
-
+ 
 ll binpow(ll a, ll b)
 {
     ll ans = 1;
@@ -108,7 +108,7 @@ ll binpowmod(ll a, ll b)
     }
     return ans;
 }
-
+ 
 bool ispal(string &a)
 {
     for (int i = 0; i < a.size() / 2; i++)
@@ -116,7 +116,7 @@ bool ispal(string &a)
             return false;
     return true;
 }
-
+ 
 void display(int n, vi &a)
 {
     for (int x : a)
@@ -134,12 +134,12 @@ void display(int n, int m, vvi &a)
     }
     cout << "\n";
 }
-
+ 
 int gcd(ll a, ll b)
 {
     return b < a ? gcd(b, a) : (b % a == 0 ? a : gcd(b % a, a));
 }
-
+ 
 class ftree
 {
 public:
@@ -150,7 +150,7 @@ public:
         this->sz = sz;
         this->ft.assign(sz, 0);
     }
-
+ 
     void add(int x)
     {
         while (x < sz)
@@ -159,7 +159,7 @@ public:
             x += x & -x;
         }
     }
-
+ 
     ll get(int x)
     {
         ll ans = 0;
@@ -168,13 +168,13 @@ public:
             ans += ft[x];
             x -= x & -x;
         }
-
+ 
         return ans;
     }
 };
-
+ 
 //////////////////////////////////////////////////////////////////MUKUL TANEJA///////////////////////////////////////////////////
-
+ 
 bool dfs(ll x, int u, vector<vvi> &gp, umil &pos, vi &vis)
 {
     pos[u] = x;
@@ -194,7 +194,7 @@ bool dfs(ll x, int u, vector<vvi> &gp, umil &pos, vi &vis)
     }
     return true;
 }
-
+ 
 bool solve(int n, int m, vvi &a)
 {
     vi vis(n+1, 0);
@@ -217,7 +217,7 @@ bool solve(int n, int m, vvi &a)
     // cout<<endl;
     return true;
 }
-
+ 
 int main()
 {
     fastio();
@@ -234,13 +234,13 @@ int main()
             cin>>a[i][0]>>a[i][1]>>a[i][2];
             // cout<<a[i][0]<<", "<<a[i][1]<<", "<<a[i][2]<<endl;
         }
-
+ 
         bool ans = solve(n, m, a);
         if(ans) cout<<"YES\n";
         else cout<<"NO\n";
     }
     return 0;
 }
-
+ 
 // g++ A.cpp -o out -std=c++11
 // -std=c++11
