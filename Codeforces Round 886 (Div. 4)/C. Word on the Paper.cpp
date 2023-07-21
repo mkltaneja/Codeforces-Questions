@@ -12,7 +12,7 @@
 #include <math.h>
 #include <numeric>
 using namespace std;
-
+ 
 #define f first
 #define s second
 #define ll long long int
@@ -78,10 +78,10 @@ using namespace std;
         cin.tie(NULL);                    \
         cout.tie(NULL);                   \
     }
-
+ 
 int mod = 1000000007;
 int MX = 1e5 + 5;
-
+ 
 ll binpow(ll a, ll b)
 {
     ll ans = 1;
@@ -106,7 +106,7 @@ ll binpowmod(ll a, ll b)
     }
     return ans;
 }
-
+ 
 bool ispal(string &a)
 {
     for (int i = 0; i < a.size() / 2; i++)
@@ -114,7 +114,7 @@ bool ispal(string &a)
             return false;
     return true;
 }
-
+ 
 void display(int n, vi &a)
 {
     for (int x : a)
@@ -132,12 +132,12 @@ void display(int n, int m, vvi &a)
     }
     cout << "\n";
 }
-
+ 
 int gcd(ll a, ll b)
 {
     return b < a ? gcd(b, a) : (b % a == 0 ? a : gcd(b % a, a));
 }
-
+ 
 class ftree
 {
 public:
@@ -148,7 +148,7 @@ public:
         this->sz = sz;
         this->ft.assign(sz, 0);
     }
-
+ 
     void add(int x)
     {
         while (x < sz)
@@ -157,7 +157,7 @@ public:
             x += x & -x;
         }
     }
-
+ 
     ll get(int x)
     {
         ll ans = 0;
@@ -166,20 +166,37 @@ public:
             ans += ft[x];
             x -= x & -x;
         }
-
+ 
         return ans;
     }
 };
-
+ 
 //////////////////////////////////////////////////////////////////MUKUL TANEJA///////////////////////////////////////////////////
-
-void solve(int a, int b, int c)
+ 
+void solve(vs &a)
 {
-    if(a+b >= 10 || a+c >= 10 || b+c >= 10)
-        cout<<"YES\n";
-    else cout<<"NO\n";
+    int x = -1, y = -1;
+    lp(i, 0, 8)
+    {
+        bool found = false;
+        lp(j, 0, 8)
+        {
+            if(a[i][j] != '.')
+            {
+                x = i, y = j;
+                found = true;
+                break;
+            }
+        }
+        if(found) break;
+    }
+    // cout<<x<<", "<<y<<endl;
+    string ans = "";
+    while(x < 8 && a[x][y] != '.')
+        ans += a[x++][y];
+    cout<<ans<<endl;
 }
-
+ 
 int main()
 {
     fastio();
@@ -188,13 +205,18 @@ int main()
     cin >> t;
     while (t--)
     {
-        int a,b,c;
-        cin >> a>>b>>c;
-
-        solve(a, b, c);
+        vs a(8);
+        lp(i, 0, 8)
+        {
+            cin>>a[i];
+            // cout<<a[i]<<endl;
+        }
+        // cout<<endl;
+ 
+        solve(a);
     }
     return 0;
 }
-
+ 
 // g++ A.cpp -o out -std=c++11
 // -std=c++11
